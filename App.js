@@ -1,9 +1,8 @@
-import { StyleSheet, Text, View } from 'react-native';
+
 import { NavigationContainer }  from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import RegisterScreen from './src/screens/authentication/RegisterScreen';
 import DrawerNavigator from './src/navigations/Drawer';
-
 import WelcomeScreen from './src/screens/authentication/WelcomeScreen';
 import LoginScreen from './src/screens/authentication/LoginScreen';
 

@@ -25,7 +25,7 @@ const LoginScreen = () => {
       await signInWithEmailAndPassword(auth, email, password)
       .then(() => {
           console.log('sucesso');
-          navigation.navigate('Home');
+          navigation.navigate('Drawer');
       })
     }
     return (
