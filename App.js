@@ -5,6 +5,7 @@ import RegisterScreen from './src/screens/authentication/RegisterScreen';
 import DrawerNavigator from './src/navigations/Drawer';
 import WelcomeScreen from './src/screens/authentication/WelcomeScreen';
 import LoginScreen from './src/screens/authentication/LoginScreen';
+import MapScreen from './src/screens/home/mapa/mapainteiro';
 
 
 
@@ -14,6 +15,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Welcome'>
+        <Stack.Screen name="Map" component={MapScreen} options = {{ headerShown : false}}/>
         <Stack.Screen name="Welcome" component={WelcomeScreen} options = {{ headerShown : false}}/>
         <Stack.Screen name="Cadastro" component={RegisterScreen} options = {{ headerShown : false}}/>
         <Stack.Screen name="Login" component={LoginScreen} options = {{ headerShown : false}}/>
