@@ -94,6 +94,22 @@ export const SecondStreetCoordinates = [
     { latitude: -26.880836, longitude: -52.369262 },
     { latitude: -26.880834, longitude: -52.369319 },
     { latitude: -26.880839, longitude: -52.369430 },
-   
-  
   ]
+
+  export const ThirdStreetCoordinates = [
+    { latitude: -26.881917, longitude: -52.382209 },
+    { latitude: -26.881812, longitude: -52.382618 },
+    { latitude: -26.881736, longitude: -52.382982 },
+    { latitude: -26.881621, longitude: -52.383336 },
+    { latitude: -26.881617, longitude: -52.383284 },
+    { latitude: -26.880479, longitude: -52.387561 },
+    { latitude: -26.879962, longitude: -52.389494 },
+    { latitude: -26.879428, longitude: -52.391174 },
+    { latitude: -26.879135, longitude: -52.392624 },
+    { latitude: -26.878911, longitude: -52.393454 },
+    { latitude: -26.877697, longitude: -52.398268 },
+
+
+   
+  ];
+  

@@ -14,7 +14,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Welcome'>
+      <Stack.Navigator initialRouteName='Map'>
         <Stack.Screen name="Map" component={MapScreen} options = {{ headerShown : false}}/>
         <Stack.Screen name="Welcome" component={WelcomeScreen} options = {{ headerShown : false}}/>
         <Stack.Screen name="Cadastro" component={RegisterScreen} options = {{ headerShown : false}}/>

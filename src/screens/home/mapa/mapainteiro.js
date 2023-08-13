@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, Text } from 'react-native';
 import MapView, { Marker, Polyline } from 'react-native-maps';
 import { Button, TextInput } from 'react-native-paper';
 import firestore from './firebase'; // Importando a configuração do Firebase
 import { collection, addDoc, getDocs, deleteDoc, doc } from 'firebase/firestore';
-import { FirstStreetCoordinates, SecondStreetCoordinates } from './StreetCoordinates';
-import darkMapStyle from './darkMapStyle.json';
+import { FirstStreetCoordinates, SecondStreetCoordinates, ThirdStreetCoordinates } from './StreetCoordinates';
+
 
 const initialRegion = {
   latitude: -26.881410,
@@ -47,8 +47,9 @@ const MapScreen = () => {
     // Verificar se o clique foi dentro das coordenadas da primeira ou segunda rua
     const isInFirstStreet = pointInPolygon(coordinate, FirstStreetCoordinates);
     const isInSecondStreet = pointInPolygon(coordinate, SecondStreetCoordinates);
+    const isInThirdStreet = pointInPolygon(coordinate, ThirdStreetCoordinates);
 
-    if (isInFirstStreet || isInSecondStreet) {
+    if (isInFirstStreet || isInSecondStreet || isInThirdStreet) {
       setSelectedCoordinate(coordinate);
     } else {
       // Aqui você pode exibir um aviso para o usuário
@@ -116,11 +117,23 @@ const MapScreen = () => {
 
   return (
     <View style={styles.container}>
+
+
       <MapView
         style={styles.map}
         initialRegion={initialRegion}
         onPress={handleMapClick}
-        customMapStyle={darkMapStyle}
+        customMapStyle={[
+          {
+            featureType: 'poi',
+            stylers: [{ visibility: 'off' }],
+          },
+          {
+            featureType: 'transit',
+            elementType: 'labels.icon',
+            stylers: [{ visibility: 'off' }],
+          },
+        ]}
       >
         <Polyline
           coordinates={FirstStreetCoordinates}
@@ -132,6 +145,12 @@ const MapScreen = () => {
           strokeColor="red"
           strokeWidth={10}
         />
+        <Polyline
+          coordinates={ThirdStreetCoordinates}
+          strokeColor="green"
+          strokeWidth={10}
+        />
+        
 
         {markers.map((marker, index) => (
           <Marker
@@ -140,6 +159,8 @@ const MapScreen = () => {
             title="Problema"
             description={marker.description}
             onPress={() => handleMarkerPress(index)}
+            tracksViewChanges={true}
+            anchor={{ x: 0.1, y: 0.1 }} 
           >
             <Image source={require('./icon/atention.png')} style={styles.markerIcon} />
           </Marker>
@@ -153,6 +174,20 @@ const MapScreen = () => {
           
         )}
       </MapView>
+
+      <View style={styles.colorInfo}>
+        <Text style={styles.colorText}>Cores das Polylines:</Text>
+        <Text style={[styles.colorText, { color: 'red' }]}>.</Text>
+        <Text style={[styles.colorText, { color: 'green' }]}>.</Text>
+        <Text style={[styles.colorText, { color: 'green' }]}>.</Text>
+        <Text style={[styles.colorText, { color: 'green' }]}>.</Text>
+        <Text style={[styles.colorText, { color: 'green' }]}>.</Text>
+        <Text style={[styles.colorText, { color: 'green' }]}>.</Text>
+        <Text style={[styles.colorText, { color: 'green' }]}>.</Text>
+        <Text style={[styles.colorText, { color: 'green' }]}>.</Text>
+        <Text style={[styles.colorText, { color: 'green' }]}>.</Text>
+      </View>
+
       {selectedMarker !== null && (
         <View style={styles.deleteButtonContainer}>
           <Button
@@ -167,13 +202,18 @@ const MapScreen = () => {
         </View>
       )}
       <TextInput
-        label="Descrição do Problema" 
+        label="Descrição do Problema"  
         value={problemDescription}
         onChangeText={(text) => setProblemDescription(text)}
         style={styles.input}
-        
+        theme={{
+          colors: {
+            text: 'white', 
+            primary: '#2FAD8F', 
+          },
+        }}
       />
-      <Button onPress={handleReportProblem}>Reportar Problema</Button>
+      <Button style={styles.text} onPress={handleReportProblem} textColor='#2FAD8F'>Reportar Problema</Button>
     </View>
   );
 };
@@ -189,7 +229,7 @@ const styles = StyleSheet.create({
   input: {
     margin: 50,
     backgroundColor: 'white',
-    color: '#2FAD8F'
+    color: '#2FAD8F',
     
   },
   markerIcon: {
@@ -203,8 +243,28 @@ const styles = StyleSheet.create({
   },
   deleteButton: {
     width: 200,
-    
     margin: 20
+  },
+  text:{
+    backgroundColor:'white',
+    color: '#2FAD8F'
+  },
+  colorInfo: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    padding: 10,
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderColor: '#ccc',
+  },
+  colorText: {
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 
