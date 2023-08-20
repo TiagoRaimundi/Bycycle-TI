@@ -61,7 +61,7 @@ const LoginScreen = () => {
             keyboardType="email-address"
             onChangeText={handleEmailChange}
             value={email}
-            style={{ flex: 1 }}
+            style={{ flex: 1 , color:'white'}}
           />
         </View>
 
@@ -73,7 +73,7 @@ const LoginScreen = () => {
             secureTextEntry={hidePassword}
             onChangeText={handlePasswordChange}
             value={password}
-            style={{ flex: 1 }}
+            style={{ flex: 1, color:'white' }}
           />
           <TouchableOpacity
             onPress={() => setHidePassword(!hidePassword)}
