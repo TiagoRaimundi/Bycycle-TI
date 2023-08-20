@@ -3,7 +3,7 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native';
 
-const image = {uri:'https://i.pinimg.com/564x/8b/2c/d4/8b2cd449c9a6809cf57cf5cf3012f9f6.jpg'}
+const image = {uri:'https://i.pinimg.com/564x/09/8e/5c/098e5cac17d2b721897ea1924a967057.jpg'}
 
 export default function WelcomeScreen() {
 

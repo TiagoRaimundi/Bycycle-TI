@@ -1,47 +1,57 @@
-import { StyleSheet, Text, View, TextInput, Button, Image, ImageBackground, TouchableOpacity } from 'react-native';
-import React from 'react';
-
+import React, { useState } from 'react';
+import { ImageBackground, View, TextInput, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../config/firebase';
-
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-const image = { uri: 'https://i.pinimg.com/564x/f1/19/ab/f119ab4a139af825b1fc572fe10d2ac0.jpg' }
+const image = { uri: 'https://cdn.pixabay.com/photo/2020/03/12/07/31/bike-4924185_1280.jpg' }
 
 const RegisterScreen = () => {
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [hidePassword, setHidePassword] = useState(true);
+  const [isFocused, setIsFocused] = useState(false);
 
   const navigation = useNavigation();
 
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-
-  const [hidePassword, setHidePassword] = React.useState(password);
-  const [isFocused, setIsFocused] = React.useState(false);
-
-  async function handleSignUp() {
+  const handleSignUp = async () => {
     await createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
-        //console.log(user);
-        navigation.navigate('Login')
+        navigation.navigate('Login');
       })
+      .catch(error => {
+        console.error('Erro ao criar conta: ', error);
+      });
   }
 
   return (
-    <ImageBackground source={image} style={styles.imagem}>
+    <ImageBackground source={image} style={{ flex: 1 }}>
       <View style={styles.container}>
         <Image
           source={require('../../assets/logo.png')}
-          style={styles.image}
+          style={styles.logo}
           resizeMode="contain"
         />
 
-        <Text style={styles.text}>Cadastro de Usuário</Text>
-        <Text style={styles.subText}>Insira seus dados</Text>
-       
+        <Text style={styles.text}> Cadastro de Usuário </Text>
+        <Text style={styles.subText}> Insira seus dados </Text>
 
         <View style={styles.input}>
-
+          <Icon name="user" style={styles.inputIcon} />
+          <TextInput
+            placeholder="Nome de Usuário"
+            placeholderTextColor="white"
+            onChangeText={setFullName}
+            value={fullName}
+            autoCapitalize="none"
+            autoCorrect={false}
+            style={{ flex: 1, color: 'white' }}
+          />
+        </View>
+        <View style={styles.input}>
+          <Icon name="envelope" style={styles.inputIcon} />
           <TextInput
             placeholder="Insira seu email"
             placeholderTextColor={'white'}
@@ -50,93 +60,89 @@ const RegisterScreen = () => {
             keyboardType="email-address"
             autoCapitalize="none"
             autoCorrect={false}
+            style={{ flex: 1, color: 'white' }}
           />
+        </View>
 
-        </View >
-       
-          <View style={styles.input}>
-
-            <TextInput
-              placeholder="Insira sua senha"
-              placeholderTextColor={'white'}
-              onChangeText={setPassword}
-              value={password}
-              password
-              secureTextEntry={true}
-            />
-            {password && (
-              <Icon
-                onPress={() => setHidePassword(!hidePassword)}
-                name={hidePassword ? 'eye' : 'eye-slash'}
-                style={styles.eyeIcon}
-              />
-            )}
-          </View>
-          <View>
-
+        <View style={styles.input}>
+          <Icon name="lock" style={styles.inputIcon} />
+          <TextInput
+            placeholder="Insira sua senha"
+            placeholderTextColor={'white'}
+            onChangeText={setPassword}
+            value={password}
+            secureTextEntry={hidePassword}
+            style={{ flex: 1., color: 'white' }}
+          />
           <TouchableOpacity
-            style={styles.btn}
-            onPress={handleSignUp}
+            onPress={() => setHidePassword(!hidePassword)}
+            style={styles.eyeIconContainer}
           >
-            <Text style={styles.textBtn}>Registrar</Text>
+            <Icon name={hidePassword ? 'eye-slash' : 'eye'} style={styles.eyeIcon} />
           </TouchableOpacity>
         </View>
+
+        <TouchableOpacity style={styles.btn} onPress={handleSignUp}>
+          <Text style={styles.textBtn}>Registrar</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          <Text style={styles.loginText}>Já possui uma conta? Faça Login</Text>
+        </TouchableOpacity>
       </View>
     </ImageBackground>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  imagem: {
-    flex: 1
-  },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 16,
+    backgroundColor: 'rgba(0,0,0,0.6)'
   },
-  text1: {
+  logo: {
+    width: 150,
+    height: 150,
     alignSelf: 'center',
-    fontSize: 12,
-    fontWeight: 'bold',
-    color: 'white',
+    marginBottom: 20,
   },
   text: {
-    alignSelf: 'center',
-    fontSize: 25,
-    fontWeight: 'bold',
+    fontSize: 28,
     color: 'white',
-    // justifyContent: 'center'
+    fontWeight: 'bold',
   },
   subText: {
-    alignSelf: 'center',
     fontSize: 18,
     color: 'white',
     marginVertical: 15,
   },
   input: {
+    flexDirection: 'row',
+    alignItems: 'center',
     color: 'white',
     height: 50,
     width: '80%',
     marginVertical: 10,
-    borderWidth: 0.75,
+    borderBottomWidth: 0.75,
     borderColor: '#ccc',
-    borderRadius: 12,
-    padding: 10,
+    paddingHorizontal: 10,
+  },
+  inputIcon: {
+    fontSize: 18,
+    color: 'white',
+    marginRight: 10,
+  },
+  eyeIconContainer: {
+    paddingLeft: 10,
   },
   eyeIcon: {
-    fontSize: 15,
+    fontSize: 18,
     color: 'white',
-  },
-  image: {
-    width: 290,
-    height: 290,
-    alignSelf: 'center',
   },
   btn: {
     backgroundColor: '#42f5cd',
-    width: 270,
+    width: 300,
     height: 50,
     borderRadius: 30,
     marginTop: 30,
@@ -150,7 +156,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     justifyContent: 'center',
     padding: 12,
-  }
+  },
+  loginText: {
+    marginTop: 20,
+    color: 'white',
+    fontSize: 16,
+    textAlign: 'center',
+  },
 });
 
 export default RegisterScreen;

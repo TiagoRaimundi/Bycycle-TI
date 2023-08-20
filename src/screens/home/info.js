@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Animated, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, Animated, TouchableOpacity, Image } from 'react-native'
 import React, { useState } from 'react'
 import { Feather } from '@expo/vector-icons'
 import { ScrollView } from 'react-native-gesture-handler';
@@ -347,9 +347,10 @@ const Info = () => {
     <View style={styles.container}>
       <ScrollView style={styles.container}>
       <LinearGradient
-        colors={['white', '#CFF2EA', 'white']} // Defina as cores do gradiente
+        colors={['#B0FFEC', '#CFF2EA']} // Defina as cores do gradiente
         style={styles.gradientBackground}
         >
+        <Image source={require('./../../assets/logo.png')} style={{width: 120, height: 120, marginTop: 10}}/>
         <TouchableOpacity
           style={isDescriptionVisible ? styles.buttonOpen2 : styles.buttonOpen}
           onPress={toggleDescription}>
@@ -551,6 +552,7 @@ const styles = StyleSheet.create({
     alignItems: 'center', // Centralizar o conteúdo horizontalmente
   },
   modalView: {
+    width: '90%',
     backgroundColor: '#CFF2EA',
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
@@ -577,7 +579,7 @@ const styles = StyleSheet.create({
   buttonOpen: {
     width: '90%',
     height: 50,
-    backgroundColor: '#CBFFF2',
+    backgroundColor: '#fff',
     borderRadius: 5,
     alignItems: 'center',
     marginTop: 20,
@@ -585,7 +587,7 @@ const styles = StyleSheet.create({
   buttonOpen2: {
     width: '90%',
     height: 50,
-    backgroundColor: '#CBFFF2',
+    backgroundColor: '#0E725A',
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
     alignItems: 'center',

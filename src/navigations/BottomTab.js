@@ -1,4 +1,5 @@
-import { View, TouchableOpacity, StyleSheet } from "react-native";
+import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
+import React, { useState } from 'react';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { Ionicons } from "@expo/vector-icons";
@@ -10,36 +11,32 @@ import Info from "../screens/home/info";
 import Perfil from "../screens/home/perfil";
 import Mapainteiro from "../screens/home/mapa/mapainteiro";
 
+
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabs() {
   const navigation = useNavigation();
+  const [isTyping, setIsTyping] = React.useState(false);
 
   return (
     <Tab.Navigator
-      initialRouteName="Mapa"
-      screenOptions={({ route }) => ({
-        tabBarActiveTintColor: "white",
-        tabBarInactiveTintColor: "#cccccc",
-        tabBarShowLabel: false,
-        tabBarStyle: {
-          backgroundColor: "#2FAD8F",
-          padding: 2,
-          height: 50,
-          borderRadius: 10,
-          bottom: 10,
-          marginHorizontal: 10,
-          shadowOffset: {
-            width: 10,
-            height: 10,
-          },
-          shadowColor: "black",
-          shadowOpacity: 1,
-          elevation: 20,
-        },
-        
-      })}
-    >
+  initialRouteName="Mapa"
+  screenOptions={({ route }) => ({
+    tabBarActiveTintColor: "white",
+    tabBarInactiveTintColor: "#cccccc",
+    tabBarShowLabel: false,
+    tabBarStyle: {
+      backgroundColor: isTyping ? 'transparent' : 'rgba(47, 173, 143, 1)', // Deixa o tab bar transparente
+      padding: 2,
+      height: 60,
+      borderRadius: 0,
+      marginHorizontal: 0,
+    },
+  })}
+  sceneContainerStyle={{
+    flex: 1, // Adicione essa linha para preencher toda a área da tela
+  }}
+>
       <Tab.Screen
         name="Informações"
         component={Info}
@@ -48,17 +45,28 @@ export default function BottomTabs() {
           headerStyle: {
             backgroundColor: "#2FAD8F",
             height: 100,
-            borderRadius: 15,
+            borderRadius: 0,
           },
+          
           headerTitleStyle: {
             color: "white",
           },
           
           tabBarIcon: ({ color, size, focused }) => {
             if (focused) {
-              return <Ionicons name="bookmark" size={22} color={color} />;
+              return (
+                <>
+                  <Ionicons name="bookmark" size={22} color={color} />
+                  <Text style={{ color: color, fontSize: 12 }}>Informações</Text>
+                </>
+              );
             }
-            return <Ionicons name="bookmark-outline" size={22} color={color} />;
+            return (
+              <>
+                <Ionicons name="bookmark-outline" size={22} color={color} />
+                <Text style={{ color: color, fontSize: 12 }}>Informações</Text>
+              </>
+            );
           },
           headerLeft: () => {
             return (
@@ -67,6 +75,7 @@ export default function BottomTabs() {
                 onPress={() => navigation.openDrawer()}
               >
                 <Ionicons name="menu" size={30} color="black" />
+                
               </TouchableOpacity>
             );
           },
@@ -82,16 +91,26 @@ export default function BottomTabs() {
           headerStyle: {
             backgroundColor: "#2FAD8F",
             height: 100,
-            borderRadius: 15,
+            borderRadius: 0,
           },
           headerTitleStyle: {
             color: "white",
           },
           tabBarIcon: ({ color, size, focused }) => {
             if (focused) {
-              return <Ionicons name="home" size={22} color={color} />;
+              return (
+                <>
+                  <Ionicons name="home" size={22} color={color} />
+                  <Text style={{ color: color, fontSize: 12 }}>Início</Text>
+                </>
+              );
             }
-            return <Ionicons name="home-outline" size={22} color={color} />;
+            return (
+              <>
+                <Ionicons name="home-outline" size={22} color={color} />
+                <Text style={{ color: color, fontSize: 12 }}>Início</Text>
+              </>
+            );
           },
           headerLeft: () => {
             return (
@@ -116,17 +135,28 @@ export default function BottomTabs() {
           headerStyle: {
             backgroundColor: "#2FAD8F",
             height: 100,
-            borderRadius: 15,
+            borderRadius: 0,
           },
+          tabBarVisible: !isTyping,
           headerTitleStyle: {
             color: "white",
           },
           headerTitleAlign: "center",
           tabBarIcon: ({ color, size, focused }) => {
             if (focused) {
-              return <Ionicons name="add" size={40} color={color} />;
+              return (
+                <>
+                  <Ionicons name="add" size={22} color={color} />
+                  <Text style={{ color: color, fontSize: 12 }}>Adicionar</Text>
+                </>
+              );
             }
-            return <Ionicons name="add-outline" size={22} color={color} />;
+            return (
+              <>
+                <Ionicons name="add-outline" size={22} color={color} />
+                <Text style={{ color: color, fontSize: 12 }}>Adicionar</Text>
+              </>
+            );
           },
           headerLeft: () => {
             return (
@@ -152,16 +182,26 @@ export default function BottomTabs() {
           headerStyle: {
             backgroundColor: "#2FAD8F",
             height: 100,
-            borderRadius: 15,
+            borderRadius: 0,
           },
           headerTitleStyle: {
             color: "white",
           },
           tabBarIcon: ({ color, size, focused }) => {
             if (focused) {
-              return <Ionicons name="person" size={22} color={color} />;
+              return (
+                <>
+                  <Ionicons name="person" size={22} color={color} />
+                  <Text style={{ color: 'white', fontSize: 12 }}>Pessoa</Text>
+                </>
+              );
             }
-            return <Ionicons name="person-outline" size={22} color={color} />;
+            return (
+              <>
+                <Ionicons name="person-outline" size={22} color={color} />
+                <Text style={{ color: color, fontSize: 12 }}>Pessoa</Text>
+              </>
+            );
           },
           headerLeft: () => {
             return (

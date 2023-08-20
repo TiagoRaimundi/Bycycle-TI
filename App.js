@@ -14,7 +14,16 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Drawer'>
+      <Stack.Navigator initialRouteName='Welcome'
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: 'transparent', // Deixa o header transparente
+        },
+        headerTintColor: 'white', // Define a cor do texto do header
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }}>
         <Stack.Screen name="Map" component={MapScreen} options = {{ headerShown : false}}/>
         <Stack.Screen name="Welcome" component={WelcomeScreen} options = {{ headerShown : false}}/>
         <Stack.Screen name="Cadastro" component={RegisterScreen} options = {{ headerShown : false}}/>

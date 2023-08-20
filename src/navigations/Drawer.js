@@ -17,7 +17,10 @@ export default function DrawerNavigator({navigation}) {
       useLegacyImplementation
       screenOptions={{
         headerShown: false,
-      }} 
+      }}
+      drawerStyle={{
+        backgroundColor: 'transparent', // Defina o plano de fundo como transparente
+      }}
       >
         <Drawer.Screen name='BottomTab' component={BottomTabs}/>
         <Drawer.Screen name='Editar Perfil' component={EditarPerfil}/>
