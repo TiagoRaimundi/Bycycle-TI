@@ -5,6 +5,7 @@ import {signInWithEmailAndPassword} from 'firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 import { auth } from '../../config/firebase';
 
+
 const image = {uri:'https://i.pinimg.com/564x/8b/2c/d4/8b2cd449c9a6809cf57cf5cf3012f9f6.jpg'}
 
 const LoginScreen = () => { 
