@@ -109,7 +109,7 @@ export default function BottomTabs() {
       />
 
       <Tab.Screen
-        name="Reportar"
+        name="Fórum"
         component={Report}
         options={{
           headerShown: true,
