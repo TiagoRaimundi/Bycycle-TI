@@ -4,7 +4,7 @@ import MapView, { Marker, Polyline } from 'react-native-maps';
 import { Button, TextInput } from 'react-native-paper';
 import firestore from './firebase'; // Importando a configuração do Firebase
 import { collection, addDoc, getDocs, deleteDoc, doc } from 'firebase/firestore';
-import { FirstStreetCoordinates, SecondStreetCoordinates, ThirdStreetCoordinates, FourthStreetCoordinates, fifthStreetCoordinates, sixthStreetCoordinates } from './StreetCoordinates';
+import { FirstStreetCoordinates, SecondStreetCoordinates, ThirdStreetCoordinates, FourthStreetCoordinates, fifthStreetCoordinates, sixthStreetCoordinates, AnaStreet } from './StreetCoordinates';
 
 
 
@@ -55,9 +55,10 @@ const MapScreen = () => {
     const isInFourthStreet = pointInPolygon(coordinate,FourthStreetCoordinates);
     const isInFifthStreet = pointInPolygon(coordinate, fifthStreetCoordinates);
     const isInSixthStreet = pointInPolygon(coordinate, sixthStreetCoordinates)
+    const isAnaStreet = pointInPolygon(coordinate, AnaStreet )
 
   
-    if (isInFirstStreet || isInSecondStreet || isInThirdStreet || isInFourthStreet || isInFifthStreet || isInSixthStreet) {
+    if (isInFirstStreet || isInSecondStreet || isInThirdStreet || isInFourthStreet || isInFifthStreet || isInSixthStreet || isAnaStreet) {
       setSelectedCoordinate(coordinate);
     } else {
       Alert.alert('Aviso', 'Clique apenas nas áreas .');
@@ -176,6 +177,11 @@ const MapScreen = () => {
         />
          <Polyline
           coordinates={sixthStreetCoordinates}
+          strokeColor="green"
+          strokeWidth={10}
+        />
+         <Polyline
+          coordinates={AnaStreet}
           strokeColor="green"
           strokeWidth={10}
         />
