@@ -35,7 +35,7 @@ const LoginScreen = () => {
 
     await signInWithEmailAndPassword(auth, email, password)
       .then(() => {
-        navigation.navigate('Drawer');
+        navigation.navigate('BottomTabs');
       })
       .catch(error => {
         setLoginError('Credenciais inválidas. Tente novamente.');

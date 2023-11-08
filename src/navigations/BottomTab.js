@@ -5,12 +5,12 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation, DrawerActions } from "@react-navigation/native";
 
-import Inicio from "../screens/home/inicio";
 import Report from "../screens/home/cadastrarproblema";
-import Info from "../screens/home/info";
 import Perfil from "../screens/home/perfil";
 import Mapainteiro from "../screens/home/mapa/mapainteiro";
+import InfoNavigation from "../screens/infoscreens/infoNavigation";
 
+import { COLORS, SIZES } from "../../assets/constants";
 
 const Tab = createBottomTabNavigator();
 
@@ -20,38 +20,38 @@ export default function BottomTabs() {
 
   return (
     <Tab.Navigator
-  initialRouteName="Mapa"
-  screenOptions={({ route }) => ({
-    tabBarActiveTintColor: "white",
-    tabBarInactiveTintColor: "#cccccc",
-    tabBarShowLabel: false,
-    tabBarStyle: {
-      backgroundColor: isTyping ? 'transparent' : 'rgba(47, 173, 143, 1)', // Deixa o tab bar transparente
-      padding: 2,
-      height: 60,
-      borderRadius: 0,
-      marginHorizontal: 0,
-    },
-  })}
-  sceneContainerStyle={{
-    flex: 1, // Adicione essa linha para preencher toda a área da tela
-  }}
->
+      initialRouteName="Mapa"
+      screenOptions={({ route }) => ({
+        tabBarActiveTintColor: "white",
+        tabBarInactiveTintColor: "#cccccc",
+        tabBarShowLabel: false,
+        tabBarStyle: {
+          backgroundColor: isTyping ? 'transparent' : COLORS.primary, // Deixa o tab bar transparente
+          padding: 2,
+          height: 60,
+          borderRadius: 0,
+          marginHorizontal: 0,
+        },
+      })}
+      sceneContainerStyle={{
+        flex: 1, // Adicione essa linha para preencher toda a área da tela
+      }}
+    >
       <Tab.Screen
-        name="Informações"
-        component={Info}
+        name="Info"
+        component={InfoNavigation}
         options={{
           headerTitleAlign: "center",
           headerStyle: {
-            backgroundColor: "#2FAD8F",
-            height: 100,
+            backgroundColor: COLORS.black,
+            height: 25,
             borderRadius: 0,
           },
-          
+
           headerTitleStyle: {
             color: "white",
           },
-          
+
           tabBarIcon: ({ color, size, focused }) => {
             if (focused) {
               return (
@@ -68,17 +68,6 @@ export default function BottomTabs() {
               </>
             );
           },
-          headerLeft: () => {
-            return (
-              <TouchableOpacity
-                style={styles.container}
-                onPress={() => navigation.openDrawer()}
-              >
-                <Ionicons name="menu" size={30} color="black" />
-                
-              </TouchableOpacity>
-            );
-          },
         }}
       />
 
@@ -89,8 +78,8 @@ export default function BottomTabs() {
           headerTitleAlign: "center",
           headerShown: true,
           headerStyle: {
-            backgroundColor: "#2FAD8F",
-            height: 100,
+            backgroundColor: COLORS.black,
+            height: 25,
             borderRadius: 0,
           },
           headerTitleStyle: {
@@ -101,27 +90,15 @@ export default function BottomTabs() {
               return (
                 <>
                   <Ionicons name="home" size={22} color={color} />
-                  <Text style={{ color: color, fontSize: 12 }}>Início</Text>
+                  <Text style={{ color: color, fontSize: 12 }}>Mapa</Text>
                 </>
               );
             }
             return (
               <>
                 <Ionicons name="home-outline" size={22} color={color} />
-                <Text style={{ color: color, fontSize: 12 }}>Início</Text>
+                <Text style={{ color: color, fontSize: 12 }}>Mapa</Text>
               </>
-            );
-          },
-          headerLeft: () => {
-            return (
-              <TouchableOpacity
-                style={styles.container}
-                onPress={() => {
-                  navigation.openDrawer();
-                }}
-              >
-                <Ionicons name="menu" size={30} color="black" />
-              </TouchableOpacity>
             );
           },
         }}
@@ -131,15 +108,15 @@ export default function BottomTabs() {
         name="Fórum"
         component={Report}
         options={{
-          headerShown: true,
+          headerShown: false,
           headerStyle: {
-            backgroundColor: "#2FAD8F",
-            height: 100,
+            backgroundColor: COLORS.black,
+            height: 25,
             borderRadius: 0,
           },
           tabBarVisible: !isTyping,
           headerTitleStyle: {
-            color: "white",
+            color: COLORS.secondary,
           },
           headerTitleAlign: "center",
           tabBarIcon: ({ color, size, focused }) => {
@@ -158,18 +135,7 @@ export default function BottomTabs() {
               </>
             );
           },
-          headerLeft: () => {
-            return (
-              <TouchableOpacity
-                style={styles.container}
-                onPress={() => {
-                  navigation.openDrawer();
-                }}
-              >
-                <Ionicons name="menu" size={30} color="black" />
-              </TouchableOpacity>
-            );
-          },
+
         }}
       />
 
@@ -180,8 +146,8 @@ export default function BottomTabs() {
           headerShown: true,
           headerTitleAlign: "center",
           headerStyle: {
-            backgroundColor: "#2FAD8F",
-            height: 100,
+            backgroundColor: COLORS.black,
+            height: 25,
             borderRadius: 0,
           },
           headerTitleStyle: {
@@ -203,18 +169,6 @@ export default function BottomTabs() {
               </>
             );
           },
-          headerLeft: () => {
-            return (
-              <TouchableOpacity
-                style={styles.container}
-                onPress={() => {
-                  navigation.openDrawer();
-                }}
-              >
-                <Ionicons name="menu" size={30} color="black" />
-              </TouchableOpacity>
-            );
-          },
         }}
       />
     </Tab.Navigator>
@@ -231,7 +185,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 20
   },
-  container2:{
+  container2: {
     left: 10,
     height: 35,
     width: 35,

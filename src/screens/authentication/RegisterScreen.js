@@ -19,7 +19,7 @@ const RegisterScreen = () => {
   const handleSignUp = async () => {
     await createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
-        navigation.navigate('Login');
+        navigation.navigate('BottomTabs');
       })
       .catch(error => {
         console.error('Erro ao criar conta: ', error);
