@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { COLORS, SIZES } from '../../../../assets/constants';
 import items from './data';
+import { Ionicons } from '@expo/vector-icons';
 
 
 const Equipamentos = ({ navigation }) => {
@@ -10,6 +11,12 @@ const Equipamentos = ({ navigation }) => {
   return (
     <ScrollView>
       <View style={styles.container}>
+      <TouchableOpacity 
+        style={styles.backButton}
+        onPress={() => navigation.goBack()}
+      >
+        <Ionicons name='chevron-back-circle' size={30} color={COLORS.primary} />
+      </TouchableOpacity>
         <Text style={styles.title}>Equipamentos</Text>
         {items.map((item, index) => (
           <TouchableOpacity key={index} style={styles.button} onPress={() => navigation.navigate('ItemDetails', { item })}>
@@ -40,6 +47,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 30,
     color: '#333',
+    top: SIZES.xSmall
+  },
+  backButton: {
+    position: 'absolute',
+    top: SIZES.xLarge,
+    left: SIZES.large,
+    zIndex: 999,
   },
   button: {
     backgroundColor: '#ffffff',

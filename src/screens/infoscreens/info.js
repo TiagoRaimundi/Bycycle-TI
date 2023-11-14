@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 export default function Info({navigation}) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Info</Text>
+      <Text style={styles.title}>Informações</Text>
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Leis')}>
         <Text style={styles.buttonText}>Leis</Text>
       </TouchableOpacity>

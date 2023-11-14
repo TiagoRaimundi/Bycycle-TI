@@ -14,9 +14,13 @@ import { COLORS, SIZES } from "../../assets/constants";
 
 const Tab = createBottomTabNavigator();
 
+
+
 export default function BottomTabs() {
   const navigation = useNavigation();
   const [isTyping, setIsTyping] = React.useState(false);
+
+  const tabBarHeight = Platform.OS === 'ios' ? 0.1 * SIZES.height : 0.08 * SIZES.height;
 
   return (
     <Tab.Navigator
@@ -27,10 +31,10 @@ export default function BottomTabs() {
         tabBarShowLabel: false,
         tabBarStyle: {
           backgroundColor: isTyping ? 'transparent' : COLORS.primary, // Deixa o tab bar transparente
-          padding: 2,
-          height: 60,
-          borderRadius: 0,
           marginHorizontal: 0,
+          alignContent: 'center',
+          justifyContent: 'center',
+          height: tabBarHeight, 
         },
       })}
       sceneContainerStyle={{
@@ -41,17 +45,13 @@ export default function BottomTabs() {
         name="Info"
         component={InfoNavigation}
         options={{
-          headerTitleAlign: "center",
           headerStyle: {
-            backgroundColor: COLORS.black,
-            height: 25,
-            borderRadius: 0,
+            height: 0.05 * SIZES.height,
+            backgroundColor: 'black',
           },
-
           headerTitleStyle: {
-            color: "white",
+            color: "black",
           },
-
           tabBarIcon: ({ color, size, focused }) => {
             if (focused) {
               return (
@@ -78,12 +78,11 @@ export default function BottomTabs() {
           headerTitleAlign: "center",
           headerShown: true,
           headerStyle: {
-            backgroundColor: COLORS.black,
-            height: 25,
-            borderRadius: 0,
+            height: 0.05 * SIZES.height,
+            backgroundColor: 'black',
           },
           headerTitleStyle: {
-            color: "white",
+            color: "black",
           },
           tabBarIcon: ({ color, size, focused }) => {
             if (focused) {
@@ -108,16 +107,15 @@ export default function BottomTabs() {
         name="Fórum"
         component={Report}
         options={{
-          headerShown: false,
+          headerShown: true,
           headerStyle: {
-            backgroundColor: COLORS.black,
-            height: 25,
-            borderRadius: 0,
+            height: 0.05 * SIZES.height,
+            backgroundColor: 'black',
+          },
+          headerTitleStyle: {
+            color: "black",
           },
           tabBarVisible: !isTyping,
-          headerTitleStyle: {
-            color: COLORS.secondary,
-          },
           headerTitleAlign: "center",
           tabBarIcon: ({ color, size, focused }) => {
             if (focused) {
@@ -146,12 +144,11 @@ export default function BottomTabs() {
           headerShown: true,
           headerTitleAlign: "center",
           headerStyle: {
-            backgroundColor: COLORS.black,
-            height: 25,
-            borderRadius: 0,
+            height: 0.05 * SIZES.height,
+            backgroundColor: 'black',
           },
           headerTitleStyle: {
-            color: "white",
+            color: "black",
           },
           tabBarIcon: ({ color, size, focused }) => {
             if (focused) {

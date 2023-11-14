@@ -6,6 +6,7 @@ import WelcomeScreen from './src/screens/authentication/WelcomeScreen';
 import LoginScreen from './src/screens/authentication/LoginScreen';
 import MapScreen from './src/screens/home/mapa/mapainteiro';
 import BottomTabs from './src/navigations/BottomTab';
+import { StatusBar } from 'expo-status-bar';
 
 
 
@@ -14,7 +15,9 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
+    
     <NavigationContainer>
+      <StatusBar style="inverted" />
       <Stack.Navigator initialRouteName='Welcome'
       screenOptions={{
         headerStyle: {
