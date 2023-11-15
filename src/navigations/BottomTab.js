@@ -1,11 +1,11 @@
 import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
 import React, { useState } from 'react';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Icon from "react-native-vector-icons/FontAwesome5";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation, DrawerActions } from "@react-navigation/native";
 
 import Report from "../screens/home/cadastrarproblema";
+
 import Mapainteiro from "../screens/home/mapa/mapainteiro";
 import InfoNavigation from "../screens/infoscreens/infoNavigation";
 
@@ -137,12 +137,11 @@ export default function BottomTabs() {
         }}
       />
 
-      <Tab.Screen
-        name="Perfil"
+<Tab.Screen
+        name="Fórum"
         component={Perfil}
         options={{
           headerShown: true,
-          headerTitleAlign: "center",
           headerStyle: {
             height: 0.05 * SIZES.height,
             backgroundColor: 'black',
@@ -150,24 +149,28 @@ export default function BottomTabs() {
           headerTitleStyle: {
             color: "black",
           },
+          tabBarVisible: !isTyping,
+          headerTitleAlign: "center",
           tabBarIcon: ({ color, size, focused }) => {
             if (focused) {
               return (
                 <>
-                  <Ionicons name="person" size={22} color={color} />
-                  <Text style={{ color: 'white', fontSize: 12 }}>Pessoa</Text>
+                  <Ionicons name="add" size={22} color={color} />
+                  <Text style={{ color: color, fontSize: 12 }}>Perfil</Text>
                 </>
               );
             }
             return (
               <>
-                <Ionicons name="person-outline" size={22} color={color} />
-                <Text style={{ color: color, fontSize: 12 }}>Pessoa</Text>
+                <Ionicons name="add-outline" size={22} color={color} />
+                <Text style={{ color: color, fontSize: 12 }}>Perfil</Text>
               </>
             );
           },
+
         }}
       />
+
     </Tab.Navigator>
   );
 }

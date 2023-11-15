@@ -1,6 +1,6 @@
 import { initializeApp } from '@firebase/app';
 import { getFirestore } from '@firebase/firestore';
-
+import { getStorage } from '@firebase/storage'
 
 const firebaseConfig = {
     apiKey: "AIzaSyCtMY1stl0Q940Iwp8XPERUis4EIBYjcLg",
@@ -11,8 +11,11 @@ const firebaseConfig = {
     appId: "1:547870473750:web:bbd74c2d8c60ee54ab7f37"
   };
   
-const app = initializeApp(firebaseConfig);
-const firestore = getFirestore(app);
+  const app = initializeApp(firebaseConfig);
+  const firestore = getFirestore(app);
+  const storage = getStorage(app); // Instância correta do Firebase Storage
+  
+  export { firestore, storage };
 
 
 
