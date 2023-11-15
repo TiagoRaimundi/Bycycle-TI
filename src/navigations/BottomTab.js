@@ -137,8 +137,8 @@ export default function BottomTabs() {
         }}
       />
 
-<Tab.Screen
-        name="Fórum"
+    <Tab.Screen
+        name="Perfil"
         component={Perfil}
         options={{
           headerShown: true,

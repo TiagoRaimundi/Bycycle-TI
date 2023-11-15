@@ -62,23 +62,15 @@ const Perfil = ({ navigation }) => {
 
         <View style={{ width: '100%' }}>
           <Image
-<<<<<<< HEAD:src/screens/home/perfil.js
-        
-=======
             source={require("../../assets/space.jpg")}
             style={styles.cover}
->>>>>>> a908718b624c695edffd36f5c12b80ae72cdb749:src/screens/perfilscreen/perfil.js
           />
         </View>
 
         <View style={styles.profileContainer}>
           <Image
-<<<<<<< HEAD:src/screens/home/perfil.js
-        
-=======
             source={require("../../assets/profile.jpg")}
             style={styles.profile}
->>>>>>> a908718b624c695edffd36f5c12b80ae72cdb749:src/screens/perfilscreen/perfil.js
           />
           <Text style={styles.name}>
             {userLogin === true ? "userData.name" : "Faça Login por favor"}
@@ -169,11 +161,8 @@ const Perfil = ({ navigation }) => {
   )
 }
 
-<<<<<<< HEAD:src/screens/home/perfil.js
 
-=======
-export default Perfil;
->>>>>>> a908718b624c695edffd36f5c12b80ae72cdb749:src/screens/perfilscreen/perfil.js
+
 
 const styles = StyleSheet.create({
   container: {
