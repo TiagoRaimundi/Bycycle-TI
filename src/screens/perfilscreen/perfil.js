@@ -97,13 +97,13 @@ const Perfil = ({ navigation }) => {
             (
               <View style={styles.menuWrapper}>
 
-                <TouchableOpacity onPress={() => {navigation.navigate('Problems')}}>
+                <TouchableOpacity onPress={() => {navigation.navigate('Editar Perfil')}}>
                   <View style={styles.menuItem(0.2)}>
                     <MaterialCommunityIcons
-                      name="heart-outline"
+                      name="account-cog-outline"
                       color={COLORS.primary}
                       size={24} />
-                    <Text style={styles.menuText}>Favoritos</Text>
+                    <Text style={styles.menuText}>Editar Perfil</Text>
                   </View>
                 </TouchableOpacity>
 
@@ -140,7 +140,7 @@ const Perfil = ({ navigation }) => {
                   </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => {logout()}}>
+                <TouchableOpacity onPress={() => {navigation.navigate('Configurações')}}>
                   <View style={styles.menuItem(0.2)}>
                     <MaterialCommunityIcons
                       name="cog-outline"
@@ -189,7 +189,6 @@ const styles = StyleSheet.create({
     marginTop: -90
   },
   name: {
-    fontFamily: 'bold',
     color: COLORS.black,
     marginVertical: 5
   },

@@ -7,6 +7,9 @@ import LoginScreen from './src/screens/authentication/LoginScreen';
 import MapScreen from './src/screens/home/mapa/mapainteiro';
 import BottomTabs from './src/navigations/BottomTab';
 import { StatusBar } from 'expo-status-bar';
+import Configuracoes from './src/screens/configscreens/configurações';
+import EditarPerfil from './src/screens/configscreens/editarperfil';
+import Perfil from './src/screens/perfilscreen/perfil';
 
 
 
@@ -33,6 +36,9 @@ export default function App() {
         <Stack.Screen name="Cadastro" component={RegisterScreen} options={{ headerShown : false}}/>
         <Stack.Screen name="Login" component={LoginScreen} options = {{ headerShown : false}}/>
         <Stack.Screen name="BottomTabs" component={BottomTabs} options = {{ headerShown : false}}/>
+        <Stack.Screen name="Configurações" component={Configuracoes} options = {{ headerShown : false}}/>
+        <Stack.Screen name="Editar Perfil" component={EditarPerfil} options = {{ headerShown : false}}/>
+        <Stack.Screen name="Perfil" component={Perfil} options = {{ headerShown : false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

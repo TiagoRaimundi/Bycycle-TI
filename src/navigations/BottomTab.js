@@ -6,11 +6,11 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation, DrawerActions } from "@react-navigation/native";
 
 import Report from "../screens/home/cadastrarproblema";
-import Perfil from "../screens/home/perfil";
 import Mapainteiro from "../screens/home/mapa/mapainteiro";
 import InfoNavigation from "../screens/infoscreens/infoNavigation";
 
 import { COLORS, SIZES } from "../../assets/constants";
+import Perfil from "../screens/perfilscreen/perfil";
 
 const Tab = createBottomTabNavigator();
 

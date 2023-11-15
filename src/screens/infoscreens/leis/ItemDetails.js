@@ -4,7 +4,7 @@ import { useRoute } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, SIZES } from '../../../../assets/constants';
 
-const ItemDetailsEquipametos = ({ navigation }) => {
+const ItemDetailsLeis = ({ navigation }) => {
   const route = useRoute();
   const { item } = route.params;
 
@@ -36,7 +36,7 @@ const ItemDetailsEquipametos = ({ navigation }) => {
   );
 };
 
-export default ItemDetailsEquipametos;
+export default ItemDetailsLeis;
 
 const styles = StyleSheet.create({
   container: {
