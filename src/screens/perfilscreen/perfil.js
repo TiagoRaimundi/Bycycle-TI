@@ -1,11 +1,13 @@
 import { StyleSheet, Text, View, TouchableOpacity, StatusBar, Image, ScrollView, Alert } from 'react-native'
 import React, { useState } from 'react'
 import { MaterialCommunityIcons, SimpleLineIcons, AntDesign } from '@expo/vector-icons';
+import { COLORS, SIZES } from '../../../assets/constants/index';
 
 const Perfil = ({ navigation }) => {
 
   const [userData, setUserData] = useState(null);
-  const [userLogin, setUserLogin] = useState(false);
+  const [userLogin, setUserLogin] = useState(true);
+
 
   const logout = ()  => {
     Alert.alert(
@@ -60,13 +62,23 @@ const Perfil = ({ navigation }) => {
 
         <View style={{ width: '100%' }}>
           <Image
+<<<<<<< HEAD:src/screens/home/perfil.js
         
+=======
+            source={require("../../assets/space.jpg")}
+            style={styles.cover}
+>>>>>>> a908718b624c695edffd36f5c12b80ae72cdb749:src/screens/perfilscreen/perfil.js
           />
         </View>
 
         <View style={styles.profileContainer}>
           <Image
+<<<<<<< HEAD:src/screens/home/perfil.js
         
+=======
+            source={require("../../assets/profile.jpg")}
+            style={styles.profile}
+>>>>>>> a908718b624c695edffd36f5c12b80ae72cdb749:src/screens/perfilscreen/perfil.js
           />
           <Text style={styles.name}>
             {userLogin === true ? "userData.name" : "Faça Login por favor"}
@@ -93,23 +105,13 @@ const Perfil = ({ navigation }) => {
             (
               <View style={styles.menuWrapper}>
 
-                <TouchableOpacity onPress={() => {navigation.navigate('Favorites')}}>
+                <TouchableOpacity onPress={() => {navigation.navigate('Problems')}}>
                   <View style={styles.menuItem(0.2)}>
                     <MaterialCommunityIcons
                       name="heart-outline"
                       color={COLORS.primary}
                       size={24} />
                     <Text style={styles.menuText}>Favoritos</Text>
-                  </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={() => navigation.navigate('Orders')}>
-                  <View style={styles.menuItem(0.2)}>
-                    <MaterialCommunityIcons
-                      name="truck-delivery-outline"
-                      color={COLORS.primary}
-                      size={24} />
-                    <Text style={styles.menuText}>Pedidos</Text>
                   </View>
                 </TouchableOpacity>
 
@@ -146,6 +148,17 @@ const Perfil = ({ navigation }) => {
                   </View>
                 </TouchableOpacity>
 
+                <TouchableOpacity onPress={() => {logout()}}>
+                  <View style={styles.menuItem(0.2)}>
+                    <MaterialCommunityIcons
+                      name="cog-outline"
+                      color={COLORS.primary}
+                      size={24}
+                    />
+                    <Text style={styles.menuText}>Configurações</Text>
+                  </View>
+                </TouchableOpacity>
+
               </View>
             )}
 
@@ -156,7 +169,11 @@ const Perfil = ({ navigation }) => {
   )
 }
 
+<<<<<<< HEAD:src/screens/home/perfil.js
 
+=======
+export default Perfil;
+>>>>>>> a908718b624c695edffd36f5c12b80ae72cdb749:src/screens/perfilscreen/perfil.js
 
 const styles = StyleSheet.create({
   container: {
@@ -201,7 +218,6 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     fontSize: 14,
     lineHeight: 16,
-    fontFamily: 'regular',
     color: COLORS.gray,
     marginHorizontal: SIZES.large
   },
