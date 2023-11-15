@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Image, Text, Alert, Modal, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Image, Text, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import MapView, { Marker, Polyline } from 'react-native-maps';
 import { Button, TextInput } from 'react-native-paper';
 import firestore from './firebase'; // Importando a configuração do Firebase
 import { collection, addDoc, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import { FirstStreetCoordinates, SecondStreetCoordinates, ThirdStreetCoordinates, FourthStreetCoordinates, fifthStreetCoordinates, sixthStreetCoordinates, AnaStreet } from './StreetCoordinates';
+import * as Location from 'expo-location';
+import { Ionicons } from '@expo/vector-icons';
+import UploadMedia from './uploadMedia';
 
 
 
@@ -22,66 +25,51 @@ const MapScreen = () => {
   const [selectedCoordinate, setSelectedCoordinate] = useState(null);
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [problemDescription, setProblemDescription] = useState('');
+  const [userLocation, setUserLocation] = useState(null);
   
 
-  const pointInPolygon = (point, polygon) => {
-    const x = point.longitude;
-    const y = point.latitude;
-
-    let isInside = false;
-
-    for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
-      const xi = polygon[i].longitude;
-      const yi = polygon[i].latitude;
-      const xj = polygon[j].longitude;
-      const yj = polygon[j].latitude;
-
-      const intersect = yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
-
-      if (intersect) {
-        isInside = !isInside;
+  useEffect(() => {
+    const requestLocationPermission = async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permissão de localização negada');
+        return;
       }
-    }
 
-    return isInside;
-  };
+      let location = await Location.getCurrentPositionAsync({});
+      setUserLocation({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      });
+    };
+
+    requestLocationPermission();
+  }, []);
+
+
+  
+
   const handleMapClick = (event) => {
     const { coordinate } = event.nativeEvent;
-
-    // Verificar se o clique foi dentro das coordenadas da primeira ou segunda rua....
-    const isInFirstStreet = pointInPolygon(coordinate, FirstStreetCoordinates);
-    const isInSecondStreet = pointInPolygon(coordinate, SecondStreetCoordinates);
-    const isInThirdStreet = pointInPolygon(coordinate, ThirdStreetCoordinates);
-    const isInFourthStreet = pointInPolygon(coordinate,FourthStreetCoordinates);
-    const isInFifthStreet = pointInPolygon(coordinate, fifthStreetCoordinates);
-    const isInSixthStreet = pointInPolygon(coordinate, sixthStreetCoordinates)
-    const isAnaStreet = pointInPolygon(coordinate, AnaStreet )
-
-  
-    if (isInFirstStreet || isInSecondStreet || isInThirdStreet || isInFourthStreet || isInFifthStreet || isInSixthStreet || isAnaStreet) {
-      setSelectedCoordinate(coordinate);
-    } else {
-      Alert.alert('Aviso', 'Clique apenas nas áreas .');
-      console.log('Clique fora das áreas delimitadas das ruas.');
-    }
+    setSelectedCoordinate(coordinate);
   };
- 
-  
+
+
   const handleMarkerPress = (markerIndex) => {
     setSelectedMarker(markerIndex);
   };
   const handleMarkerLongPress = async () => {
     if (selectedMarker !== null) {
       const markerToDelete = markers[selectedMarker];
-  
+
       try {
         const docRef = doc(firestore, 'problemas', markerToDelete.id);
         await deleteDoc(docRef);
-  
+
         // Use spread para criar uma cópia atualizada do array de markers
         const updatedMarkers = [...markers];
         updatedMarkers.splice(selectedMarker, 1); // Remove o marcador
-  
+
         setMarkers(updatedMarkers);
         setSelectedMarker(null);
       } catch (error) {
@@ -89,7 +77,7 @@ const MapScreen = () => {
       }
     }
   };
- 
+
 
 
   useEffect(() => {
@@ -113,6 +101,7 @@ const MapScreen = () => {
       const newMarker = {
         coordinate: selectedCoordinate,
         description: problemDescription,
+        
       };
 
       try {
@@ -127,148 +116,154 @@ const MapScreen = () => {
     }
   };
 
-  
-  
+
+
 
   return (
-    <View style={styles.container}>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.container}>
 
 
-      <MapView
-        style={styles.map}
-        initialRegion={initialRegion}
-        onPress={handleMapClick}
-        customMapStyle={[
-          {
-            featureType: 'poi',
-            stylers: [{ visibility: 'off' }],
-          },
-          {
-            featureType: 'transit',
-            elementType: 'labels.icon',
-            stylers: [{ visibility: 'off' }],
-          },
-        ]}
-      >
-        <Polyline
-          coordinates={FirstStreetCoordinates}
-          strokeColor="red"
-          strokeWidth={10}
-        />
-        <Polyline
-          coordinates={SecondStreetCoordinates}
-          strokeColor="red"
-          strokeWidth={10}
-        />
-        <Polyline
-          coordinates={ThirdStreetCoordinates}
-          strokeColor="green"
-          strokeWidth={10}
-        />
-        <Polyline
-          coordinates={FourthStreetCoordinates}
-          strokeColor="green"
-          strokeWidth={10}
-        />
-         <Polyline
-          coordinates={fifthStreetCoordinates}
-          strokeColor="green"
-          strokeWidth={10}
-        />
-         <Polyline
-          coordinates={sixthStreetCoordinates}
-          strokeColor="green"
-          strokeWidth={10}
-        />
-         <Polyline
-          coordinates={AnaStreet}
-          strokeColor="green"
-          strokeWidth={10}
-        />
-        
+        <MapView
+          style={styles.map}
+          initialRegion={initialRegion}
+          onPress={handleMapClick}
+          customMapStyle={[
+            {
+              featureType: 'poi',
+              stylers: [{ visibility: 'off' }],
+            },
+            {
+              featureType: 'transit',
+              elementType: 'labels.icon',
+              stylers: [{ visibility: 'off' }],
+            },
+          ]}
 
-
-  
-
-        {markers.map((marker, index) => (
-          <Marker
-            key={index}
-            coordinate={marker.coordinate}
-            title="Problema"
-            description={marker.description}
-            onPress={() => handleMarkerPress(index)}
-            tracksViewChanges={true}
-           
-          >
-            <Image source={require('./icon/atention.png')} style={styles.markerIcon} />
-          </Marker>
-        ))}
-        {selectedCoordinate && (
-          <Marker
-            coordinate={selectedCoordinate}
-            pinColor="#2FAD8F"
-            title="Novo Problema"
+        >
+          <Polyline
+            coordinates={FirstStreetCoordinates}
+            strokeColor="red"
+            strokeWidth={15}
           />
-          
-        )}
-      </MapView>
-      {selectedMarker !== null ? (
-    <View style={styles.deleteButtonContainer}>
-      <Button
-        icon="delete"
-        mode="outlined"
-        onPress={() => {
-          handleMarkerLongPress(); // Excluir o marcador
-          setSelectedMarker(null); // Definir selectedMarker como null para ocultar o botão
-        }}
-        style={styles.deleteButton}
-        theme={{
-          colors: {
-            text: 'white', 
-            primary: '#2FAD8F', 
-          },
-        }}
-      >
-        Deletar Marcador
-      </Button>
-      <Button
-        mode="outlined"
-        onPress={() => setSelectedMarker(null)} // Cancelar
-        style={styles.cancelButton}
-        theme={{
-          colors: {
-            text: 'white', 
-            primary: '#2FAD8F', 
-          },
-        }}
-      >
-        Cancelar
-      </Button>
-    </View>
-  ) : null}
-      <TextInput
-        label="Descrição do Problema"  
-        value={problemDescription}
-        onChangeText={(text) => setProblemDescription(text)}
-        style={styles.input}
-        theme={{
-          colors: {
-            text: 'white', 
-            primary: '#2FAD8F', 
-          },
-        }}
-      />
-      
-      <Button style={styles.text} onPress={handleReportProblem} textColor='#2FAD8F'>Reportar Problema</Button>
-      <View style={styles.explanationContainer}>
-        <View style={[styles.colorLine, { backgroundColor: 'red' }]} />
-        <Text style={styles.explanationText}>Ciclovias</Text>
+          <Polyline
+            coordinates={SecondStreetCoordinates}
+            strokeColor="red"
+            strokeWidth={15}
+          />
+          <Polyline
+            coordinates={ThirdStreetCoordinates}
+            strokeColor="green"
+            strokeWidth={15}
+          />
+          <Polyline
+            coordinates={FourthStreetCoordinates}
+            strokeColor="green"
+            strokeWidth={15}
+          />
+          <Polyline
+            coordinates={fifthStreetCoordinates}
+            strokeColor="green"
+            strokeWidth={15}
+          />
+          <Polyline
+            coordinates={sixthStreetCoordinates}
+            strokeColor="green"
+            strokeWidth={15}
+          />
+          <Polyline
+            coordinates={AnaStreet}
+            strokeColor="green"
+            strokeWidth={15}
+          />
+          {markers.map((marker, index) => (
+            <Marker
+              key={index}
+              coordinate={marker.coordinate}
+              title="Problema"
+              description={marker.description}
+              onPress={() => handleMarkerPress(index)}
+              tracksViewChanges={true}
+
+            >
+              <Image source={require('./icon/atention.png')} style={styles.markerIcon} />
+            </Marker>
+
+          ))}
+          {selectedCoordinate && (
+            <Marker
+              coordinate={selectedCoordinate}
+              pinColor="#2FAD8F"
+              title="Novo Problema"
+            />
+
+          )}
+          {userLocation && (
+            <Marker coordinate={userLocation} title="Sua Localização">
+              <Ionicons name="location-sharp" size={40} color="red" />
+            </Marker>
+          )}
+
+        </MapView>
+        {selectedMarker !== null ? (
+          <View style={styles.deleteButtonContainer}>
+            <Button
+              icon="delete"
+              mode="outlined"
+              onPress={() => {
+                handleMarkerLongPress(); // Excluir o marcador
+                setSelectedMarker(null); // Definir selectedMarker como null para ocultar o botão
+              }}
+              style={styles.deleteButton}
+              theme={{
+                colors: {
+                  text: 'white',
+                  primary: '#2FAD8F',
+                },
+              }}
+            >
+              Deletar Marcador
+            </Button>
+            <Button
+              mode="outlined"
+              onPress={() => setSelectedMarker(null)} // Cancelar
+              style={styles.cancelButton}
+              theme={{
+                colors: {
+                  text: 'white',
+                  primary: '#2FAD8F',
+                },
+              }}
+            >
+              Cancelar
+            </Button>
+          </View>
+        ) : null}
+        <TextInput
+          label="Descrição do Problema"
+          value={problemDescription}
+  
+          onChangeText={(text) => setProblemDescription(text)}
+          style={styles.input}
+          theme={{
+            colors: {
+              text: 'white',
+              primary: '#2FAD8F',
+            },
+          }}
+        />
+  
+        <Button style={styles.text} onPress={handleReportProblem} textColor='#2FAD8F'>Reportar Problema</Button>
+        <View style={styles.explanationContainer}>
+          <View style={[styles.colorLine, { backgroundColor: 'red' }]} />
+          <Text style={styles.explanationText}>Ciclovias</Text>
+        </View>
+        <View style={styles.explanationContainer}>
+          <View style={[styles.colorLine, { backgroundColor: 'green' }]} />
+          <Text style={styles.explanationText}>Ciclofaixas</Text>
+        </View>
       </View>
-      <View style={styles.explanationContainer}>
-        <View style={[styles.colorLine, { backgroundColor: 'green' }]} />
-        <Text style={styles.explanationText}>Ciclofaixas</Text>
-      </View>
-    </View>
+    </TouchableWithoutFeedback >
   );
 };
 
@@ -284,7 +279,7 @@ const styles = StyleSheet.create({
     margin: 10,
     backgroundColor: 'white',
     color: '#2FAD8F',
-    
+
   },
   markerIcon: {
     width: 32,
@@ -299,9 +294,9 @@ const styles = StyleSheet.create({
     width: 200,
     margin: 20
   },
-  text:{
+  text: {
     margin: 15,
-    backgroundColor:'white',
+    backgroundColor: 'white',
     color: '#2FAD8F'
   },
   explanationContainer: {

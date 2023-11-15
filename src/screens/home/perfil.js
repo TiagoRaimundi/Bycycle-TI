@@ -60,15 +60,13 @@ const Perfil = ({ navigation }) => {
 
         <View style={{ width: '100%' }}>
           <Image
-            source={require("../../../../assets/images/space.jpg")}
-            style={styles.cover}
+        
           />
         </View>
 
         <View style={styles.profileContainer}>
           <Image
-            source={require("../../../../assets/images/profile.jpeg")}
-            style={styles.profile}
+        
           />
           <Text style={styles.name}>
             {userLogin === true ? "userData.name" : "Faça Login por favor"}
@@ -158,7 +156,7 @@ const Perfil = ({ navigation }) => {
   )
 }
 
-export default Profile;
+
 
 const styles = StyleSheet.create({
   container: {
@@ -222,3 +220,5 @@ const styles = StyleSheet.create({
   })
 
 })
+
+export default Perfil;

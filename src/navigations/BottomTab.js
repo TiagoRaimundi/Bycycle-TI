@@ -6,7 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation, DrawerActions } from "@react-navigation/native";
 
 import Report from "../screens/home/cadastrarproblema";
-import Perfil from "../screens/home/perfil";
+
 import Mapainteiro from "../screens/home/mapa/mapainteiro";
 import InfoNavigation from "../screens/infoscreens/infoNavigation";
 
@@ -137,37 +137,6 @@ export default function BottomTabs() {
         }}
       />
 
-      <Tab.Screen
-        name="Perfil"
-        component={Perfil}
-        options={{
-          headerShown: true,
-          headerTitleAlign: "center",
-          headerStyle: {
-            height: 0.05 * SIZES.height,
-            backgroundColor: 'black',
-          },
-          headerTitleStyle: {
-            color: "black",
-          },
-          tabBarIcon: ({ color, size, focused }) => {
-            if (focused) {
-              return (
-                <>
-                  <Ionicons name="person" size={22} color={color} />
-                  <Text style={{ color: 'white', fontSize: 12 }}>Pessoa</Text>
-                </>
-              );
-            }
-            return (
-              <>
-                <Ionicons name="person-outline" size={22} color={color} />
-                <Text style={{ color: color, fontSize: 12 }}>Pessoa</Text>
-              </>
-            );
-          },
-        }}
-      />
     </Tab.Navigator>
   );
 }
