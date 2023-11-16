@@ -155,14 +155,14 @@ export default function BottomTabs() {
             if (focused) {
               return (
                 <>
-                  <Ionicons name="add" size={22} color={color} />
+                  <Ionicons name="person" size={22} color={color} />
                   <Text style={{ color: color, fontSize: 12 }}>Perfil</Text>
                 </>
               );
             }
             return (
               <>
-                <Ionicons name="add-outline" size={22} color={color} />
+                <Ionicons name="person-outline" size={22} color={color} />
                 <Text style={{ color: color, fontSize: 12 }}>Perfil</Text>
               </>
             );
