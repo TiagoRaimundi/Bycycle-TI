@@ -4,7 +4,7 @@ import { useRoute } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, SIZES } from '../../../../assets/constants';
 
-const ItemDetailsLeis = ({ navigation }) => {
+const ItemDetailsDif = ({ navigation }) => {
   const route = useRoute();
   const { item } = route.params;
 
@@ -24,17 +24,14 @@ const ItemDetailsLeis = ({ navigation }) => {
 
       <View style={styles.details}>
         <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.description}>Do que isso se refere?</Text>
+        <Text style={styles.description}>O que é?</Text>
         <Text style={styles.descText}>{item.description}</Text>
-        <Text style={styles.descText}>{item.description1}</Text>
-        <Text style={styles.descText}>{item.description2}</Text>
-        
       </View>
     </View>
   );
 };
 
-export default ItemDetailsLeis;
+export default ItemDetailsDif;
 
 const styles = StyleSheet.create({
   container: {
