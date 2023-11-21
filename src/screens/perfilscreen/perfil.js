@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, StatusBar, Image, ScrollView, Alert } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, StatusBar, Image, ScrollView, Alert, SafeAreaView } from 'react-native'
 import React, { useState } from 'react'
 import { MaterialCommunityIcons, SimpleLineIcons, AntDesign } from '@expo/vector-icons';
 import { COLORS, SIZES } from '../../../assets/constants/index';
@@ -18,7 +18,7 @@ const Perfil = ({ navigation }) => {
           text: "Cancelar", onPress: () => console.log("cancel pressed")
         },
         {        
-          text: "Continuar", onPress: () => console.log("continue pressed")
+          text: "Continuar", onPress: () => navigation.navigate("Login")
         }
       ],
       {defaultIndex: 1}
@@ -48,7 +48,7 @@ const Perfil = ({ navigation }) => {
           text: "Cancelar", onPress: () => console.log("cancel pressed")
         },
         {        
-          text: "Continuar", onPress: () => console.log("continue pressed")
+          text: "Continuar", onPress: () => navigation.navigate("Cadastro")
         }
       ],
       {defaultIndex: 1}
@@ -57,7 +57,7 @@ const Perfil = ({ navigation }) => {
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <StatusBar backgroundColor={COLORS.gray} />
 
         <View style={{ width: '100%' }}>
@@ -77,7 +77,7 @@ const Perfil = ({ navigation }) => {
           </Text>
           {userLogin === false ?
             (
-              <TouchableOpacity onPress={() => navigation.navigate('LoginPage')}>
+              <TouchableOpacity onPress={() => navigation.navigate('Login')}>
                 <View style={styles.loginBtn}>
                   <Text style={styles.menuText}>  L O G I N  </Text>
                 </View>
@@ -96,16 +96,6 @@ const Perfil = ({ navigation }) => {
             ) :
             (
               <View style={styles.menuWrapper}>
-
-                <TouchableOpacity onPress={() => {navigation.navigate('Editar Perfil')}}>
-                  <View style={styles.menuItem(0.2)}>
-                    <MaterialCommunityIcons
-                      name="account-cog-outline"
-                      color={COLORS.primary}
-                      size={24} />
-                    <Text style={styles.menuText}>Editar Perfil</Text>
-                  </View>
-                </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => {clearCache()}}>
                   <View style={styles.menuItem(0.2)}>
@@ -156,7 +146,7 @@ const Perfil = ({ navigation }) => {
 
         </View>
 
-      </View>
+      </SafeAreaView>
     </ScrollView>
   )
 }

@@ -3,125 +3,113 @@ import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Alert, Button } f
 import { Linking } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, FontAwesome } from '@expo/vector-icons';
+import { COLORS, SIZES } from '../../../assets/constants';
 
  
 const INSTAGRAM_ICON = 'instagram';
 const WEBSITE_ICON = 'globe';
 
 export default function Configuracoes() {
-  const navigation = useNavigation();
 
-    const handleLogout = async () => {
- 
-};
+  const navigation = useNavigation();
 
   const WebsiteLink = () => {
     const websiteURL =
-      'https://inaciorigatti.github.io/divulgacaoMillo/?fbclid=PAAaaaWlL1cZSQuBej1qQ-fQVctDcreuGuZI4pF99Z2HB8HZx74Tgy_iQF3lE';
+      'https://github.com/jose-gp21/Bycycle-vweb/tree/main/bycycle-web-main';
     Linking.openURL(websiteURL);
   };
 
-  const goToScreenPp =  () => {
-  console.log('safada');
-  navigation.navigate("Pp")
+  const GitHub = () => {
+    const websiteURL =
+      'https://github.com/TiagoRaimundi/Bycycle-TI';
+    Linking.openURL(websiteURL);
   };
-   const goToScreenTu =  () => {
-  console.log('safada');
-  navigation.navigate("Tu")
-  }; 
 
-
-
-  
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>Configurações</Text>
+      <TouchableOpacity 
+        style={styles.backButton}
+        onPress={() => navigation.goBack()}
+      >
+        <Ionicons name='chevron-back-circle' size={30} color={COLORS.offwhite} />
+      </TouchableOpacity>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={goToScreenPp} style={styles.button4}>
+        <TouchableOpacity onPress={()=>navigation.navigate("Políticas de Privacidade")} style={styles.button}>
           <Text style={styles.buttonText}>Políticas de Privacidade</Text>
         </TouchableOpacity>
       </View>
       
-  <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={goToScreenTu} style={styles.button9}>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity onPress={()=>navigation.navigate("Termos de Uso")} style={styles.button}>
           <Text style={styles.buttonText}>Termos de uso</Text>
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() =>
-          Linking.openURL('mailto:seuamigovirtualmillo@gmail.com')
-        }
-      >
-        <Text style={styles.button5}>Feedback</Text>
+      <TouchableOpacity style={styles.button} onPress={() => Linking.openURL('mailto:suporte.bycycle@gmail.com')}>
+        <Text style={styles.buttonText}>Feedback</Text>
       </TouchableOpacity>
-      <View style={styles.iconContainer}>
 
-        <TouchableOpacity style={styles.button6} onPress={WebsiteLink}>
-          <Ionicons name={WEBSITE_ICON} size={40} color={'#333'} />
+      <View style={styles.iconContainer}>
+        <TouchableOpacity style={styles.buttonIcon} onPress={WebsiteLink}>
+          <Ionicons name="globe" size={40} color={COLORS.secondary} />
         </TouchableOpacity>
+
+        <TouchableOpacity style={styles.buttonIcon} onPress={GitHub}>
+        <FontAwesome name="github" size={48} color={COLORS.secondary} />
+      </TouchableOpacity>
       </View>
     </View>
   );
-} 
-const windowWidth = Dimensions.get('window').width;
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e4eaed', 
+    backgroundColor: COLORS.black,
     alignItems: 'center',
+    justifyContent: 'center',
+  },
+  backButton: {
+    position: 'absolute',
+    top: SIZES.xxLarge,
+    left: SIZES.large,
+    zIndex: 999,
   },
   titulo: {
-    marginTop: 30,
-    fontSize: 40,
+    marginTop: SIZES.large,
+    fontSize: SIZES.font,
     fontWeight: 'bold',
-    color: '#000',
-    marginBottom: 20,  
+    color: COLORS.lightWhite,
+    marginBottom: SIZES.medium,
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
+
+    paddingHorizontal: SIZES.medium,
   },
-  button4: { //ppv
-    backgroundColor: '#a6c4bd',
-    padding:16,
-     width: 390,
-     marginTop: 30,  
+  button: {
+    backgroundColor: COLORS.secondary,
+    padding: SIZES.small,
+
+    marginTop: SIZES.medium,
+    borderRadius: SIZES.large,
+  },
+  buttonText: {
+    fontSize: SIZES.font,
+    textAlign: 'center',
+    color: COLORS.black,
   },
   iconContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    width: '50%', // 80% of the screen width
+    marginTop: SIZES.large,
   },
-    button6: { //insta e site
-    backgroundColor: '#c7d7d8',
-    padding:16, 
-    marginTop:85,  
-    width: 200,
-    height: 70,
-    alignItems: 'center',
+  buttonIcon: {
+    backgroundColor: COLORS.lightGray,
+    padding: SIZES.small,
+    borderRadius: SIZES.large,
   },
-  buttonText: {
-    fontSize: 25,
-    textAlign: 'center',
-  },
-     button5: { //feedback
-   backgroundColor: '#a6c4bd',
-   padding: 16,
-    width: 390,
-    fontSize: 25,
-    textAlign: 'center',
-  }, 
-      button9: { //feedback
-   backgroundColor: '#c7d7d8',
-   padding: 16,
-    width: 390,
-    fontSize: 25,
-    textAlign: 'center',
-  },  
-  
-});  
+});

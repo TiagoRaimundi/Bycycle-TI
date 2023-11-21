@@ -10,6 +10,8 @@ import { StatusBar } from 'expo-status-bar';
 import Configuracoes from './src/screens/configscreens/configurações';
 import EditarPerfil from './src/screens/configscreens/editarperfil';
 import Perfil from './src/screens/perfilscreen/perfil';
+import PoliticasPrivacidade from './src/screens/configscreens/Politica';
+import TermosDeUso from './src/screens/configscreens/Termos';
 
 
 
@@ -26,7 +28,7 @@ export default function App() {
         headerStyle: {
           backgroundColor: 'transparent', // Deixa o header transparente
         },
-        headerTintColor: 'white', // Define a cor do texto do header
+        headerTintColor: 'black', // Define a cor do texto do header
         headerTitleStyle: {
           fontWeight: 'bold',
         },
@@ -39,6 +41,8 @@ export default function App() {
         <Stack.Screen name="Configurações" component={Configuracoes} options = {{ headerShown : false}}/>
         <Stack.Screen name="Editar Perfil" component={EditarPerfil} options = {{ headerShown : false}}/>
         <Stack.Screen name="Perfil" component={Perfil} options = {{ headerShown : false}}/>
+        <Stack.Screen name="Políticas de Privacidade" component={PoliticasPrivacidade} options = {{ headerShown : true}}/>
+        <Stack.Screen name="Termos de Uso" component={TermosDeUso} options = {{ headerShown : true}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

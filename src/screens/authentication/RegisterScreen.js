@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../config/firebase';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { COLORS } from '../../../assets/constants';
 
 const image = { uri: 'https://cdn.pixabay.com/photo/2020/03/12/07/31/bike-4924185_1280.jpg' }
 
@@ -89,6 +90,17 @@ const RegisterScreen = () => {
         <TouchableOpacity onPress={() => navigation.navigate('Login')}>
           <Text style={styles.loginText}>Já possui uma conta? Faça Login</Text>
         </TouchableOpacity>
+
+        <View style={styles.termSection}>
+          <Text style={styles.textTerm}>
+            Ao se cadastrar você está concordando com os
+          </Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Termos de Uso')}>
+            <Text style={styles.termosDeUsoText}>
+              Termos de uso
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </ImageBackground>
   );
@@ -162,6 +174,22 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     textAlign: 'center',
+  },
+  termSection: {
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  textTerm: {
+    marginTop: 20,
+    color: 'white',
+    fontSize: 12,
+    textAlign: 'center',
+    marginHorizontal: 30,
+  },
+  termosDeUsoText: {
+    fontSize: 12,
+    color: COLORS.secondary, // Escolha a cor que preferir
+    textDecorationLine: 'underline',
   },
 });
 

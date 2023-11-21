@@ -1,4 +1,4 @@
-import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
+import { View, TouchableOpacity, StyleSheet, Text, Platform } from "react-native";
 import React, { useState } from 'react';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
@@ -11,15 +11,19 @@ import InfoNavigation from "../screens/infoscreens/infoNavigation";
 
 import { COLORS, SIZES } from "../../assets/constants";
 import Perfil from "../screens/perfilscreen/perfil";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Tab = createBottomTabNavigator();
 
 
 
 export default function BottomTabs() {
+
+  const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const [isTyping, setIsTyping] = React.useState(false);
-
+  
+  const headerHeight = Platform.OS === 'ios' ? 0 * SIZES.height + insets.top : 0.03 * SIZES.height;
   const tabBarHeight = Platform.OS === 'ios' ? 0.1 * SIZES.height : 0.08 * SIZES.height;
 
   return (
@@ -46,8 +50,8 @@ export default function BottomTabs() {
         component={InfoNavigation}
         options={{
           headerStyle: {
-            height: 0.05 * SIZES.height,
-            backgroundColor: 'black',
+            height: headerHeight,
+            backgroundColor:  Platform.OS === 'ios' ? 'black' : 'transparent',
           },
           headerTitleStyle: {
             color: "black",
@@ -78,8 +82,8 @@ export default function BottomTabs() {
           headerTitleAlign: "center",
           headerShown: true,
           headerStyle: {
-            height: 0.05 * SIZES.height,
-            backgroundColor: 'black',
+            height: headerHeight,
+            backgroundColor:  Platform.OS === 'ios' ? 'black' : 'transparent',
           },
           headerTitleStyle: {
             color: "black",
@@ -107,10 +111,10 @@ export default function BottomTabs() {
         name="Fórum"
         component={Report}
         options={{
-          headerShown: true,
+          headerShown: false,
           headerStyle: {
-            height: 0.05 * SIZES.height,
-            backgroundColor: 'black',
+            height: 0,
+            backgroundColor:  Platform.OS === 'ios' ? 'black' : 'transparent',
           },
           headerTitleStyle: {
             color: "black",
@@ -143,8 +147,8 @@ export default function BottomTabs() {
         options={{
           headerShown: true,
           headerStyle: {
-            height: 0.05 * SIZES.height,
-            backgroundColor: 'black',
+            height: headerHeight,
+            backgroundColor:  Platform.OS === 'ios' ? 'black' : 'transparent',
           },
           headerTitleStyle: {
             color: "black",
